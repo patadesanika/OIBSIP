@@ -1,0 +1,32 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def code():
+    print("Mail sending case study!")
+    data=pd.read_csv("spam.csv",encoding="ISO-8859-1")
+
+    print(data.head())
+    print("Shape of the data is:- ",data.shape)
+    x=data.v1
+    y=data.v2
+    x.replace(to_replace='spam',value=0,inplace=True)
+    x.replace(to_replace='ham',value=1,inplace=True)
+    #print(x)
+
+    sns.histplot(x)
+    plt.show()
+    data_train,data_test,target_train,target_test=train_test_split(x,y,test_size=0.9,random_state=25)
+    gok=pd.concat([data_train,target_train],axis=1)
+    var=int(input("enter the value \n0-for All Spam Reord \n1-Not spam Record\n"))
+    if(var==0):
+        spam=gok[gok.v1==0]
+        print(spam)
+    elif(var==1):
+        ham=gok[gok.v1==1]
+        print(ham)
+    else:
+        print("Wrong choice")
+if __name__=="__main__":
+    code()
